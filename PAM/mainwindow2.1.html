@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PULSE AMPLITUDE MODULATION</title>
+</head>
+
+<body>
+  <h1>PULSE AMPLITUDE MODULATION</h1>
+  <style>
+    h1 {
+      text-align: left;
+      text-transform: uppercase;
+      color: blanchedalmond;
+    }
+
+    html {
+      background: url(7.jpg) no-repeat center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      top: 50%;
+      z-index: index -1;
+      text-align: center;
+    }
+
+    .container img {
+      width: 100%;
+      height: 100%;
+      z-index: index -1;
+    }
+
+    .circuit {
+      width: 95% !important;
+      height: 95% !important;
+    }
+
+    /*input window*/
+    .tooltip {
+      position: absolute;
+      top: 56%;
+      left: 13.5%;
+      z-index: 2;
+      opacity: 0.10;
+    }
+
+    .tooltip:hover {
+      opacity: 1;
+    }
+
+    .tooltip .tooltiptext1 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 70%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip:hover .tooltiptext1 {
+      visibility: visible;
+    }
+
+    .tooltip1 .tooltiptext2 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      bottom: 100%;
+      left: 0%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip1:hover .tooltiptext2 {
+      visibility: visible;
+    }
+
+    /*PAM signal*/
+    .tooltip2 {
+      position: absolute;
+      top: 31%;
+      left: 85%;
+      z-index: 2;
+      opacity: 0.10;
+    }
+
+    .tooltip2:hover {
+      opacity: 1;
+    }
+
+    .tooltip2 .tooltiptext3 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip2:hover .tooltiptext3 {
+      visibility: visible;
+    }
+
+    /*pulse signal*/
+    .tooltip3 {
+      position: absolute;
+      top: 56%;
+      left: 80.5%;
+      z-index: 2;
+      opacity: .1;
+    }
+
+    .tooltip3:hover {
+      opacity: 1
+    }
+
+    .tooltip3 .tooltiptext4 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 0%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip3:hover .tooltiptext4 {
+      visibility: visible;
+    }
+  </style>
+  <div class="container">
+    <img class="circuit" src="B2.png">
+    <div style="max-width: 6%; max-height: 3%" class="tooltip"><img src="Node.png" id="INPUT"> <span
+        class="tooltiptext1">Modulating Signal</span></div>
+    <div style="max-width: 5%; max-height: 3%" class="tooltip2"><img src="Node.png" id="FM"> <span
+        class="tooltiptext3">Pulse Amplitude Modulated Signal </span></div>
+    <div style="max-width: 6%; max-height: 3%" class="tooltip3"><img src="Node.png" id="AM"> <span
+        class="tooltiptext4">PULSE SIGNAL</span></div>
+  </div>
+
+  <script>
+    function inputSignal() {
+      window.open("subwindow.html", "Modulating Signal ", "width=500,height=300");
+    }
+    document.querySelector("#INPUT").addEventListener("click",inputSignal)
+    function FMSignal() {
+      window.open("pam1.html", "Pulse Amplitude Modulation Signal", "width = 720, height = 375");
+    }
+    document.querySelector("#FM").addEventListener("click",FMSignal)
+    function AMSignal() {
+      window.open("pulse.html", "Pulse Generator Signal", "width = 720, height = 375", false)
+    }
+    document.querySelector("#AM").addEventListener("click",AMSignal)
+    localStorage.clear()
+  </script>
+</body>
+
+</html>

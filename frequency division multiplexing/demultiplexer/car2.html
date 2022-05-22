@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <h1>Enter Parameters</h1>
+</head>
+
+<body>
+    <style>
+        h1 {
+            color: #fff;
+        }
+
+        html {
+            background: url(7.jpg) no-repeat center fixed;
+            background-size: cover;
+        }
+
+        div {
+            position: absolute;
+            top: 30%;
+            left: 25%;
+            width: 50%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .button1 {
+            font-size: 12px;
+            padding: 2px 20px;
+            background: url(button2.png) no-repeat;
+            background-size: contain;
+            color: black;
+            position: absolute;
+            top: 100%;
+            left: 20%;
+            border: none;
+            text-align: start;
+        }
+
+        .button1:hover {
+            background-color: #616269;
+            color: #78d5f5;
+        }
+
+        .button1:active {
+            background-color: #616269;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        div.div1 {
+            position: relative;
+            font-weight: 200;
+            color: #fff;
+            top: 20%
+        }
+
+        div.div2 {
+            position: relative;
+            font-weight: 200;
+            color: #ffffff;
+            top: 40%
+        }
+    </style>
+
+    <div class="div1">
+        <p>CARRIER Signal</p>
+        <label>Amplitude </label>
+        <select name="myText1" id="myText1">
+            <option value="1">1 Vp-p</option>
+            <option value="2">2 Vp-p</option>
+            <option value="3">3 Vp-p</option>
+            <option value="4">4 Vp-p</option>
+            <option value="5">5 Vp-p</option>
+            <option value="6">6 Vp-p</option>
+            <option value="7">7 Vp-p</option>
+            <option value="8">8 Vp-p</option>
+            <option value="9">9 Vp-p</option>
+            <option value="10">10 Vp-p</option>
+            <option value="11">11 Vp-p</option>
+            <option value="12">12 Vp-p</option>
+            <option value="13">13 Vp-p</option>
+            <option value="14">14 Vp-p</option>
+            <option value="15">15 Vp-p</option>
+            <option value="16">16 Vp-p</option>
+            <option value="17">17 Vp-p</option>
+            <option value="18">18 Vp-p</option>
+            <option value="19">19 Vp-p</option>
+            <option value="20">20 Vp-p</option>
+        </select><br />
+        <label>Frequency</label>
+        <select type="number" id="myText2"><br />
+            <option value="50000">50KHz</option>
+            <option value="55000">55KHz</option>
+            <option value="60000">60KHz</option>
+            <option value="65000">65KHz</option>
+            <option value="70000">70KHz</option>
+            <option value="75000">75KHz</option>
+            <option value="80000">80KHz</option>
+            <option value="85000">85KHz</option>
+            <option value="90000">90KHz</option>
+            <option value="95000">95KHz</option>
+            <option value="100000">100KHz</option>
+        </select><br />
+        <button class="button1" id="OK">OK</button>
+    </div>
+
+    <script>
+        var input1;
+        var input2;
+        document.querySelector("#OK").addEventListener("click",valueSender)
+        function getStorage() {
+            input1 = localStorage.getItem("car1fre");
+            input2 = localStorage.getItem("car3fre");
+        }
+
+        function valueSender() {
+            var c = document.getElementById("myText1").value;
+            var d = document.getElementById("myText2").value;
+            getStorage()
+            if (d == input1 || d == input2) {
+            alert("Invalid! Similar carrier frequency detected.")
+            } else {
+            localStorage.setItem("car2amp", c);
+            localStorage.setItem("car2fre", d);
+            myWindow1 = window.open("dcar2.html", "swc2", "width = 720, height = 450", false)
+            }
+        }
+    </script>
+</body>
+
+</html>

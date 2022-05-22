@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>FM generation</title>
+  <h1>FM Generator Circuit</h1>
+</head>
+
+<body>
+  <style>
+    h1 {
+      text-align: left;
+      text-transform: uppercase;
+      color: blanchedalmond;
+    }
+
+    html {
+      background: url(7.jpg) no-repeat center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      top: 50%;
+      z-index: index -1;
+    }
+
+    .container img {
+      width: 100%;
+      height: 100%;
+      z-index: index -1;
+    }
+
+    /*input window*/
+    .tooltip {
+      position: absolute;
+      top: 11%;
+      left: 59.5%;
+      z-index: 2;
+    }
+
+    .tooltip .tooltiptext1 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 0%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip:hover .tooltiptext1 {
+      visibility: visible;
+    }
+
+    /*output signal*/
+    .tooltip1 {
+      position: absolute;
+      top: 46%;
+      left: 89%;
+      z-index: 2;
+    }
+
+    .tooltip1 .tooltiptext2 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip1:hover .tooltiptext2 {
+      visibility: visible;
+    }
+  </style>
+
+  <div class="container">
+    <img src="circuitb.PNG">
+    <div style="max-width: 3%; max-height: 3%" class="tooltip"><img src="Node.png" id="input"> <span
+        class="tooltiptext1">INPUT </span></div>
+    <div style="max-width: 3%; max-height: 3%" class="tooltip1"><img src="Node.png" id="output"> <span
+        class="tooltiptext2">OUTPUT</span></div>
+  </div>
+
+  <script>
+    var b, c, d, e, f, g1, amp, fre, amp1, fre1;
+    b = localStorage.getItem("myValue")
+    c = localStorage.getItem("myValue1-2")
+    amp1 = localStorage.getItem("myValueA")
+    amp = parseFloat(amp1);
+    fre1 = localStorage.getItem("myValueB")
+    fre = parseFloat(fre1);
+    f = parseFloat(b)
+    g1 = (200 * amp) / fre
+    localStorage.setItem("myValue1", f);
+    localStorage.setItem("myValue1", c);
+
+    function inputSignal() {
+      window.open("subwindow.html", "voltage ", "width=400,height=250");
+    }
+    document.querySelector("#input").addEventListener("click",inputSignal)
+    function outputSignal() {
+      window.open("C(t).html", "voltage3", "width=720,height=375", false)
+    }
+    document.querySelector("#output").addEventListener("click",outputSignal)
+    localStorage.clear()
+  </script>
+</body>
+
+</html>

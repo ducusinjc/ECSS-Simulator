@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balance Modulator Z</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    const canvas2 = document.createElement('canvas'), pi = Math.PI;
+    canvas2.id = 'canvas2';
+    canvas2.width = (window.innerWidth) - 25;
+    canvas2.height = (3.25 * window.innerHeight) / 4;
+    canvas2.style.border = "1px solid #000";
+    canvas2.style.position = "top 95px;"
+    canvas2.style.margin = "2.5px";
+    document.body.appendChild(canvas2);
+    const context1 = canvas2.getContext('2d');
+    const C = 0.01; D = 55000; freqx = 0;  ebmx = 0;  freqy = 0; ebmy = 0; ebmz = 0;
+    const V = 0.25;
+    var a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ñ, xz;
+
+    a = localStorage.getItem("car1fre");
+    b = parseFloat(a);
+    c = localStorage.getItem("car1amp");
+    d = parseFloat(c);
+    e = localStorage.getItem("demin1fre");
+    f = parseFloat(e);
+    g = localStorage.getItem("demin1amp");
+    h = parseFloat(g);
+    i = localStorage.getItem("car2fre");
+    j = parseFloat(i);
+    k = localStorage.getItem("car2amp");
+    l = parseFloat(k);
+    m = localStorage.getItem("demin2fre");
+    n = parseFloat(m);
+    o = localStorage.getItem("demin2amp");
+    p = parseFloat(o);
+    q = localStorage.getItem("car3fre");
+    r = parseFloat(q);
+    s = localStorage.getItem("car3amp");
+    t = parseFloat(s);
+    u = localStorage.getItem("demin3fre");
+    v = parseFloat(u);
+    w = localStorage.getItem("demin3amp");
+    x = parseFloat(w);
+    y = localStorage.getItem("carZfre");
+    xz = parseFloat(y);
+    z = localStorage.getItem("carZamp");
+    ñ = parseFloat(z);
+
+    var num1, num2, num, mf, n = 2, o, p;
+    var freqa = (a - e);
+    var freqb = (i - m);
+    var freqc = (q - u);
+    if (freqa <  xz){
+         freq1 = (xz - freqa);
+        }else{
+            freq1 = freqx;
+        };
+    if (freqb <  xz){
+         freq2 = (xz - freqb);
+        }else{
+            freq2 = freqx;
+        };
+    if (freqc <  xz){
+         freq3 = (xz - freqc);
+        }else{
+            freq3 = freqx;
+        };
+    var freq4 = (xz + freqa);
+    var freq5 = (xz + freqb);
+    var freq6 = (xz + freqc);
+    var inc1 = a / 20;
+    var inc2 = a / 10;
+    var inc3 = a / 10;
+    var inc4 = a / 10;
+    var inc5 = a / 10;
+    var inc6 = a / 15;
+    var bm1 = (4 * C * c * g) / 2;
+    var ebma = 4 * V * z;
+    if (freq1 != freqx){
+         ebm1 = (ebma * bm1) / 2;
+        }else{
+           ebm1 = "-V";
+        };
+    ebm4 = (ebma * bm1) / 2;
+    var bm2 = (4 * C * k * o) / 2;
+    var ebmb = 4 * V * z;
+     if (freq2 != freqx){
+         ebm2 = (ebmb * bm2) / 2;
+        }else{
+           ebm2 = "-V";
+        };
+    ebm5 = (ebmb * bm2) / 2;
+    var bm3 = (4 * C * s * w) / 2;
+    var ebmc = 4 * V * z;
+    if (freq3 != freqx){
+         ebm3 = (ebmc * bm3) / 2;
+        }else{
+           ebm3 = "-V"; 
+        };
+    ebm6 = (ebmc * bm3) / 2;
+    var amp1 = ebm1 / 10;
+    var amp2 = ebm2 / 10;
+    var amp3 = ebm3 / 10;
+    var amp4 = ebm4 / 10;
+    var amp5 = ebm5 / 10;
+    var amp6 = ebm6 / 10;
+
+
+
+    function freqdraw() {
+      freqlabel(); freqlines();
+    };
+
+
+    function freqlabel() {
+      context1.beginPath();
+      context1.font = "20px Arial ";
+      context1.fillText('Frequency Spectrum', 10, 16);
+      context1.closePath();
+      context1.beginPath();
+    };
+
+    function freqlines() {
+      o = 30
+      p = 10
+      draw1()
+
+
+      function draw1() {
+
+        context1.beginPath();
+        context1.beginPath();
+        context1.stroke();
+        context1.moveTo(0, canvas2.height - canvas2.height / 5);
+        context1.lineTo(canvas2.width, canvas2.height - canvas2.height / 5);
+        context1.strokeStyle = "#000"
+        context1.stroke();
+        context1.closePath();
+
+
+        if (D > xz) {
+
+          if (freq1 != freqx) {
+                context1.moveTo(canvas2.width / 150 + inc1 / 15, canvas2.height - canvas2.height / 5);
+                context1.lineTo(canvas2.width / 150 + inc1 / 15, canvas2.height - canvas2.height / 5 - 30 - (amp1));
+                context1.stroke();
+                context1.stroke();
+                context1.font = "10px Arial "
+                context1.fillText((ebm1.toPrecision(3)) + "V", canvas2.width / 350 + inc1 / 15, canvas2.height - canvas2.height / 5 - 35 - (amp1));
+                context1.fillText(((freq1)) + "Hz", canvas2.width / 350 + inc1 / 15.5, canvas2.height - canvas2.height / 5 + p);
+                context1.stroke();
+              }else {
+                context1.stroke();
+                context1.stroke();
+                context1.fillText((ebmx.toPrecision(3)), canvas2.width, canvas2.height );
+                context1.fillText(((freqx)), canvas2.width , canvas2.height) ;
+              }
+         
+          context1.moveTo(canvas2.width / 10 + inc4 / 10, canvas2.height - canvas2.height / 5);
+          context1.lineTo(canvas2.width / 10 + inc4 / 10, canvas2.height - canvas2.height / 5 - 30 - (amp4));
+          context1.stroke();
+          context1.stroke();
+          context1.font = "10px Arial "
+          context1.fillText((ebm4.toPrecision(3)) + "V", canvas2.width / 11 + inc4 / 10, canvas2.height - canvas2.height / 5 - 35 - (amp4));
+          context1.fillText(((freq4)) + "Hz", canvas2.width / 12 + inc4 / 10, canvas2.height - canvas2.height / 5 + p);
+          context1.stroke();
+
+          context1.moveTo(canvas2.width / 5 + inc5 / 10, canvas2.height - canvas2.height / 5);
+          context1.lineTo(canvas2.width / 5 + inc5 / 10, canvas2.height - canvas2.height / 5 - (amp5 * 150));
+          context1.stroke();
+          context1.stroke();
+          context1.font = "10px Arial "
+          context1.fillText((ebm5.toPrecision(3)) + "V", canvas2.width / 8.5 + inc5 / 9, canvas2.height - canvas2.height / 5 - 5 - (amp5* 150));
+          context1.fillText(((freq5)) + "Hz", canvas2.width / 5.5 + inc5 / 10, canvas2.height - canvas2.height / 5 + p);
+
+          context1.moveTo(canvas2.width / 15 + inc6 / 5, canvas2.height - canvas2.height / 5);
+          context1.lineTo(canvas2.width / 15 + inc6 / 5, canvas2.height - canvas2.height / 5 - (amp6 * 150));
+          context1.stroke();
+          context1.stroke();
+          context1.font = "10px Arial "
+          context1.fillText((ebm6.toPrecision(3)) + "V", canvas2.width / 17 + inc6 / 5, canvas2.height - canvas2.height / 5 - 5 - (amp6 * 150));
+          context1.fillText(((freq6)) + "Hz", canvas2.width / 20 + inc6 / 5, canvas2.height - canvas2.height / 5 + p);
+
+        } else if (D < xz) {
+
+              if (freq1 != freqx) {
+                context1.moveTo(canvas2.width / 150 + inc1 / 15, canvas2.height - canvas2.height / 5);
+                context1.lineTo(canvas2.width / 150 + inc1 / 15, canvas2.height - canvas2.height / 5 - 30 - (amp1));
+                context1.stroke();
+                context1.stroke();
+                context1.font = "10px Arial "
+                context1.fillText((ebm1.toPrecision(3)) + "V", canvas2.width / 350 + inc1 / 15, canvas2.height - canvas2.height / 5 - 35 - (amp1));
+                context1.fillText(((freq1)) + "Hz", canvas2.width / 350 + inc1 / 15.5, canvas2.height - canvas2.height / 5 + p);
+                context1.stroke();
+              }else {
+                context1.stroke();
+                context1.stroke();
+                context1.fillText((ebmx.toPrecision(3)), canvas2.width, canvas2.height );
+                context1.fillText(((freqx)), canvas2.width , canvas2.height) ;
+              }
+
+              if (freq2 != freqy) {
+                context1.moveTo(canvas2.width / 250 - 10 + inc2 / 50, canvas2.height - canvas2.height / 5);
+                context1.lineTo(canvas2.width / 250 - 10 + inc2 / 50, canvas2.height - canvas2.height / 5 - (amp2 * 150));
+                context1.stroke();
+                context1.stroke();
+                context1.font = "10px Arial "
+                context1.fillText((ebm2.toPrecision(3)) + "V", canvas2.width / 15 + inc2 / 130, canvas2.height - canvas2.height / 5 - 5 - (amp2 * 150));
+                context1.fillText(((freq2)) + "Hz", canvas2.width / 20 + inc2 / 120, canvas2.height - canvas2.height / 5 + p);
+                context1.stroke();
+              }else {
+                context1.stroke();
+                context1.stroke();
+                context1.fillText((ebmy.toPrecision(3)), canvas2.width, canvas2.height);
+                context1.fillText((freqy), canvas2.width , canvas2.height);
+              }
+
+              if (freq3 != freqx) {
+                context1.moveTo(canvas2.width / 250 - 10 + inc3 / 140, canvas2.height - canvas2.height / 5);
+                context1.lineTo(canvas2.width / 250 - 10 + inc3 / 140, canvas2.height - canvas2.height / 5 - (amp3 * 150));
+                context1.stroke();
+                context1.stroke();
+                context1.font = "10px Arial "
+                context1.fillText((ebm3.toPrecision(3)) + "V", canvas2.width / 250 - 15 + inc3 / 140, canvas2.height - canvas2.height / 5 - 5 - (amp3 * 150));
+                context1.fillText(((freq3)) + "Hz", canvas2.width / 250 - 10 + inc3 / 250, canvas2.height - canvas2.height / 5 + p);
+                context1.stroke();
+              }else {
+                context1.stroke();
+                context1.stroke();
+                context1.fillText((ebmz.toPrecision(3)), canvas2.width, canvas2.height);
+                context1.fillText((freqx), canvas2.width , canvas2.height);
+              }
+         
+            context1.moveTo(canvas2.width / 10 + inc4 / 10, canvas2.height - canvas2.height / 5);
+            context1.lineTo(canvas2.width / 10 + inc4 / 10, canvas2.height - canvas2.height / 5 - 30 - (amp4));
+            context1.stroke();
+            context1.stroke();
+            context1.font = "10px Arial "
+            context1.fillText((ebm4.toPrecision(3)) + "V", canvas2.width / 11 + inc4 / 10, canvas2.height - canvas2.height / 5 - 35 - (amp4));
+            context1.fillText(((freq4)) + "Hz", canvas2.width / 12 + inc4 / 10, canvas2.height - canvas2.height / 5 + p);
+            context1.stroke();
+
+            context1.moveTo(canvas2.width / 5 + inc5 / 10, canvas2.height - canvas2.height / 5);
+            context1.lineTo(canvas2.width / 5 + inc5 / 10, canvas2.height - canvas2.height / 5 - (amp5 * 150));
+            context1.stroke();
+            context1.stroke();
+            context1.font = "10px Arial "
+            context1.fillText((ebm5.toPrecision(3)) + "V", canvas2.width / 8.5 + inc5 / 9, canvas2.height - canvas2.height / 5 - 5 - (amp5 * 150));
+            context1.fillText(((freq5)) + "Hz", canvas2.width / 5.5 + inc5 / 10, canvas2.height - canvas2.height / 5 + p);
+
+              
+           context1.moveTo(canvas2.width / 15 + inc6 / 5, canvas2.height - canvas2.height / 5);
+           context1.lineTo(canvas2.width / 15 + inc6 / 5, canvas2.height - canvas2.height / 5 - (amp6 * 150));
+           context1.stroke();
+           context1.stroke();
+           context1.font = "10px Arial "
+           context1.fillText((ebm6.toPrecision(3)) + "V", canvas2.width / 17 + inc6 / 5, canvas2.height - canvas2.height / 5 - 5 - (amp6 * 150));
+           context1.fillText(((freq6)) + "Hz", canvas2.width / 20 + inc6 / 5, canvas2.height - canvas2.height / 5 + p);
+
+        } else {
+
+          
+            if (freq1 != freqx) {
+                  context1.moveTo(canvas2.width / 150 + inc1 / 15, canvas2.height - canvas2.height / 5);
+                  context1.lineTo(canvas2.width / 150 + inc1 / 15, canvas2.height - canvas2.height / 5 - 30 - (amp1));
+                  context1.stroke();
+                  context1.stroke();
+                  context1.font = "10px Arial "
+                  context1.fillText((ebm1.toPrecision(3)) + "V", canvas2.width / 350 + inc1 / 15, canvas2.height - canvas2.height / 5 - 35 - (amp1));
+                  context1.fillText(((freq1)) + "Hz", canvas2.width / 350 + inc1 / 15.5, canvas2.height - canvas2.height / 5 + p);
+                  context1.stroke();
+                }else {
+                  context1.stroke();
+                  context1.stroke();
+                  context1.fillText((ebmx.toPrecision(3)), canvas2.width, canvas2.height );
+                  context1.fillText(((freqx)), canvas2.width , canvas2.height) ;
+                }
+
+                if (freq2 != freqy) {
+                  context1.moveTo(canvas2.width / 250 - 10 + inc2 / 50, canvas2.height - canvas2.height / 5);
+                  context1.lineTo(canvas2.width / 250 - 10 + inc2 / 50, canvas2.height - canvas2.height / 5 - (amp2 * 150));
+                  context1.stroke();
+                  context1.stroke();
+                  context1.font = "10px Arial "
+                  context1.fillText((ebm2.toPrecision(3)) + "V", canvas2.width / 15 + inc2 / 130, canvas2.height - canvas2.height / 5 - 5 - (amp2 * 150));
+                  context1.fillText(((freq2)) + "Hz", canvas2.width / 20 + inc2 / 120, canvas2.height - canvas2.height / 5 + p);
+                  context1.stroke();
+                }else {
+                  context1.stroke();
+                  context1.stroke();
+                  context1.fillText((ebmy.toPrecision(3)), canvas2.width, canvas2.height);
+                  context1.fillText((freqy), canvas2.width , canvas2.height);
+                }
+
+        context1.moveTo(canvas2.width / 10 + inc4 / 10, canvas2.height - canvas2.height / 5);
+        context1.lineTo(canvas2.width / 10 + inc4 / 10, canvas2.height - canvas2.height / 5 - 30 - (amp4));
+        context1.stroke();
+        context1.stroke();
+        context1.font = "10px Arial "
+        context1.fillText((ebm4.toPrecision(3)) + "V", canvas2.width / 11 + inc4 / 10, canvas2.height - canvas2.height / 5 - 35 - (amp4));
+        context1.fillText(((freq4)) + "Hz", canvas2.width / 12 + inc4 / 10, canvas2.height - canvas2.height / 5 + p);
+        context1.stroke();
+        
+        context1.moveTo(canvas2.width / 5 + inc5 / 10, canvas2.height - canvas2.height / 5);
+        context1.lineTo(canvas2.width / 5 + inc5 / 10, canvas2.height - canvas2.height / 5 - (amp5 * 150));
+        context1.stroke();
+        context1.stroke();
+        context1.font = "10px Arial "
+        context1.fillText((ebm5.toPrecision(3)) + "V", canvas2.width / 8.5 + inc5 / 9, canvas2.height - canvas2.height / 5 - 5 - (amp5 * 150));
+        context1.fillText(((freq5)) + "Hz", canvas2.width / 5.5 + inc5 / 10, canvas2.height - canvas2.height / 5 + p);
+
+        context1.stroke();
+        context1.moveTo(canvas2.width / 15 + inc6 / 5, canvas2.height - canvas2.height / 5);
+        context1.lineTo(canvas2.width / 15 + inc6 / 5, canvas2.height - canvas2.height / 5 - (amp6 * 150));
+        context1.stroke();
+        context1.stroke();
+        context1.font = "10px Arial "
+        context1.fillText((ebm6.toPrecision(3)) + "V", canvas2.width / 17 + inc6 / 5, canvas2.height - canvas2.height / 5 - 5 - (amp6 * 150));
+        context1.fillText(((freq6)) + "Hz", canvas2.width / 20 + inc6 / 5, canvas2.height - canvas2.height / 5 + p);
+
+
+        }
+
+      }
+    };
+
+
+    function loop1() {
+      context1.clearRect(0, 0, canvas2.width, canvas2.height)
+      freqdraw();
+    }
+    loop1()
+  </script>
+</body>
+
+</html>

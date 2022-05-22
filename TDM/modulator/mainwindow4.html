@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Time Division Multiplexing</title>
+</head>
+
+<body>
+  <h1>Time Division Multiplexing</h1>
+  <style>
+    h1 {
+      text-align: left;
+      text-transform: uppercase;
+      color: blanchedalmond;
+    }
+
+    html {
+      background: url(7.jpg) no-repeat center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      top: 50%;
+      z-index: index -1;
+    }
+
+    .container img {
+      width: 100%;
+      height: 100%;
+      z-index: index -1;
+    }
+
+    /*input 1*/
+    .tooltip {
+      position: absolute;
+      top: 18%;
+      left: 38%;
+      z-index: 2;
+      opacity: 0.25;
+    }
+
+    .tooltip:hover {
+      opacity: 1;
+    }
+
+    .tooltip .tooltiptext1 {
+      visibility: hidden;
+      width: 90px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 70%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip:hover .tooltiptext1 {
+      visibility: visible;
+    }
+
+    /*INPUT 2*/
+    .tooltip1 {
+      position: absolute;
+      top: 48.5%;
+      left: 38%;
+      z-index: 2;
+      opacity: 0.25;
+    }
+
+    .tooltip1:hover {
+      opacity: 1;
+    }
+
+    .tooltip1 .tooltiptext2 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip1:hover .tooltiptext2 {
+      visibility: visible;
+    }
+
+    /* INPUT 3*/
+    .tooltip2 {
+      position: absolute;
+      top: 74%;
+      left: 38%;
+      z-index: 2;
+      opacity: 0.25;
+    }
+
+    .tooltip2:hover {
+      opacity: 1;
+    }
+
+    .tooltip2 .tooltiptext3 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip2:hover .tooltiptext3 {
+      visibility: visible;
+    }
+
+    /*OUTPUT*/
+    .tooltip9 {
+      position: absolute;
+      top: 47.5%;
+      left: 90.5%;
+      z-index: 2;
+      opacity: 0.15;
+    }
+
+    .tooltip9:hover {
+      opacity: 1
+    }
+
+    .tooltip9 .tooltiptext10 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip9:hover .tooltiptext10 {
+      visibility: visible;
+    }
+  </style>
+  <div class="container">
+    <img src="1.png">
+
+    <div style="max-width: 4%; max-height: 3%" class="tooltip"><img src="Node.png" id="SIGNAL1"> <span
+        class="tooltiptext1">INPUT A</span></div>
+    <div style="max-width: 4%; max-height: 3%" class="tooltip1"><img src="Node.png" id="SIGNAL2"> <span
+        class="tooltiptext2">INPUT B</span></div>
+    <div style="max-width: 4%; max-height: 3%" class="tooltip2"><img src="Node.png" id="SIGNAL3"> <span
+        class="tooltiptext3">INPUT C</span></div>
+    <div style="max-width: 4%; max-height: 3%" class="tooltip9"><img src="Node.png" id="OUTPUT"> <span
+        class="tooltiptext10">OUPUT</span></div>
+
+  </div>
+
+  <script>
+    var input1;
+    var input2;
+    var input3;
+
+    function getStorage() {
+      input1 = localStorage.getItem("signala");
+      input2 = localStorage.getItem("signa2a");
+      input3 = localStorage.getItem("signa3a");
+    }
+
+    function INPUT1signal() {
+      window.open("input1.html", "INPUT 1 ", "width=495,height=280");
+    }
+    document.querySelector("#SIGNAL1").addEventListener("click",INPUT1signal)
+    function INPUT2signal() {
+      window.open("input2.html", "INPUT 2 ", "width=495,height=280");
+    }
+    document.querySelector("#SIGNAL2").addEventListener("click",INPUT2signal)
+    function INPUT3signal() {
+      window.open("input3.html", "INPUT 3", "width=495,height=280");
+    }
+    document.querySelector("#SIGNAL3").addEventListener("click",INPUT3signal)
+
+    function OUTPUTsignal() {
+      getStorage()
+      if (input1 == undefined || input2 == undefined || input3 == undefined) {
+        alert("Invalid Value! Please add inputs.")
+      } else {
+        window.open("signalTotal.html", "Multiplexer Waveform ", "width=700,height=310");
+      }
+    }
+    document.querySelector("#OUTPUT").addEventListener("click",OUTPUTsignal)
+    localStorage.clear()
+
+  </script>
+</body>
+
+</html>

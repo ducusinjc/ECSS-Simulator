@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Input C</title>
+</head>
+
+<body>
+    <style>
+        h1 {
+            color: #fff;
+        }
+
+        html {
+            background: url(7.jpg) no-repeat center fixed;
+            background-size: cover;
+        }
+
+        div {
+            position: absolute;
+            top: 30%;
+            left: 15%;
+            width: 70%;
+            display: inline-block;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .button1 {
+            font-size: 12px;
+            padding: 2px 20px;
+            background: url(button2.png) no-repeat;
+            background-size: contain;
+            color: black;
+            position: absolute;
+            top: 100%;
+            left: 40%;
+            border: none;
+            text-align: start;
+        }
+
+        .button1:hover {
+            background-color: #616269;
+            color: #78d5f5;
+        }
+
+        .button1:active {
+            background-color: #616269;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        div.div1 {
+            position: relative;
+            font-weight: 200;
+            color: #fff;
+            top: 20%
+        }
+
+        div.div2 {
+            position: relative;
+            font-weight: 200;
+            color: #ffffff;
+            top: 40%
+        }
+    </style>
+
+    <div class="div1">
+        <p>Input C Signal</p>
+        <label>Signal Bits: </label>
+        <input type="text" id="myText1" value="" placeholder="Enter Bits" maxlength="5">
+        <p></p>
+        <button class="button1" id="OK">OK</button>
+    </div>
+
+    <script>
+        document.querySelector("#OK").addEventListener("click",valueSender)
+        function valueSender() {
+            var c = document.getElementById("myText1").value;
+            if (c.length < 1) {
+                alert("Invalid Value! Please enter a value.")
+            } else {
+                if (/[0-1]/.test(c)) {
+                    localStorage.setItem("signa3a", c);
+                    myWindow1 = window.open("signal3.html", "INPUT3", "width=700,height=310", false)
+                } else {
+                    alert("Invalid Value! Please enter 1s or 0s.")
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

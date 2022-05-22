@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>FM generation</title>
+  <h1>FM Generator Circuit</h1>
+</head>
+
+<body>
+  <style>
+    h1 {
+      text-align: left;
+      text-transform: uppercase;
+      color: blanchedalmond;
+    }
+
+    html {
+      background: url(7.jpg) no-repeat center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      top: 50%;
+      z-index: index -1;
+    }
+
+    .container img {
+      width: 100%;
+      height: 100%;
+      z-index: index -1;
+    }
+
+    /*input window*/
+    .tooltip {
+      position: absolute;
+      top: 16.5%;
+      left: 75.6%;
+      z-index: 2;
+      opacity: 0.5;
+    }
+
+    .tooltip:hover {
+      opacity: 1;
+    }
+
+    .tooltip .tooltiptext1 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      width: 120px;
+      bottom: 100%;
+      left: 0%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip:hover .tooltiptext1 {
+      visibility: visible;
+      opacity: 1
+    }
+
+    /*output signal*/
+    .tooltip1 {
+      position: absolute;
+      top: 49.5%;
+      left: 91%;
+      z-index: 2;
+    }
+
+    .tooltip1 .tooltiptext2 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip1:hover .tooltiptext2 {
+      visibility: visible;
+    }
+
+    /*carrier signal*/
+    .tooltip2 {
+      position: absolute;
+      top: 42%;
+      left: 49.5%;
+      z-index: 2;
+    }
+
+    .tooltip2 .tooltiptext3 {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 2;
+    }
+
+    .tooltip2:hover .tooltiptext3 {
+      visibility: visible;
+    }
+  </style>
+  <div class="container">
+    <img src="circuit.png">
+    <div style="max-width: 3%; max-height: 3%" class="tooltip"><img src="Node.png" id="input"> <span
+        class="tooltiptext1">INPUT </span></div>
+    <div style="max-width: 3%; max-height: 3%" class="tooltip1"><img src="Node.png" id="output"> <span
+        class="tooltiptext2">OUTPUT</span></div>
+    <div style="max-width: 3%; max-height: 3%" class="tooltip2"><img src="Node.png" id="carrier"> <span
+        class="tooltiptext3">CARRIER SIGNAL</span></div>
+  </div>
+
+
+
+  <script>
+    var b, c, d, e, f, g1, amp, fre, amp1, fre1;
+    b = localStorage.getItem("myValue")
+    c = localStorage.getItem("myValue1-2")
+    amp1 = localStorage.getItem("myValueA")
+    amp = parseFloat(amp1);
+    fre1 = localStorage.getItem("myValueB")
+    fre = parseFloat(fre1);
+    f = parseFloat(b)
+    g1 = (200 * amp) / fre
+    localStorage.setItem("myValue1", f);
+    localStorage.setItem("myValue1", c);
+    var myWindow, myWindow1
+    function inputSignal() {
+      window.open("subwindow.html", "Input", "width=450,height=300");
+    }
+    document.querySelector("#input").addEventListener("click",inputSignal)
+    function carrierSignal() {
+      window.open("C(t).html", "Carrier Signal Waveform", "width=720,height=375")
+    }
+    document.querySelector("#output").addEventListener("click",outputSignal)
+    function outputSignal() {
+      window.open("FM(t).html", "Frequency Modulation Waveform 1", "width=720,height=375", false)
+    }
+    document.querySelector("#carrier").addEventListener("click",carrierSignal)
+    localStorage.clear()
+  </script>
+</body>
+
+</html>

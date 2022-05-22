@@ -1,0 +1,202 @@
+<html>
+
+<head>
+    <title>Frequency Modulation Waveform </title>
+</head>
+
+<body>
+    <style>
+        .slider {
+            -webkit-appearance: none;
+            width: 30%;
+            height: 1px;
+            background: #19b8e6;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #e64719;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .coordinatestooltip {
+            display: none;
+            background: #FFE5B4;
+            margin-left: 10px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            width: 110px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .coordinates:hover .coordinatestooltip {
+            display: block;
+        }
+    </style>
+
+    <div>
+        <div style="font-size: 24;text-align: center;">Frequency Modulated Signal</div>
+        <div style="font-size: 18;text-align: center;">Time Domain</div>
+        <div style="padding-left:40px">
+            <input type="button" id="PlayPauseButton" value="Pause">
+            <input type="button" onclick="document.location='ytsignal1.html'" value="Frequency Spectrum">
+        </div>
+    </div>
+    <div style="position: relative;">
+        <canvas id="grid" width="1060" height="200" style="position: absolute; left: 0; top: 10; z-index: 0;"></canvas>
+        <span class="coordinates">
+            <canvas id="graph" width="1020" height="161"
+                style="position: absolute; left: 40; top: 9; z-index: 1;"></canvas><span id="coordinateDisplay"
+                class="coordinatestooltip"></span>
+        </span>
+    </div>
+
+    <script type="text/javascript">
+        const canvas0 = document.getElementById('grid');
+        const ctx0 = canvas0.getContext('2d');
+        const canvas = document.getElementById('graph');
+        const context = canvas.getContext('2d');
+
+        var FMypos = [];
+        var t = 0;
+        var flag = true;
+        var e = localStorage.getItem("myValueA");
+        var f = parseFloat(e);
+        var d = localStorage.getItem("myValueB");
+        var g = parseFloat(d);
+        var a1 = 0.000000000335 / Math.sqrt(1 + 2 * 15);
+        var a2 = 0.000000000098 + a1;
+        var a3 = 1 / (2 * Math.PI * Math.sqrt(0.000400 * a2));
+        if (e == null) f = 0;
+        if (d == null) g = 1;
+        var AB = 200 * f / g;
+
+        var timeDiv = 20 * (Math.PI / 180) / 1000;
+        var tooltip = document.querySelectorAll('.coordinatestooltip');
+        document.addEventListener('mousemove', fn, false);
+        function fn(event) {
+            for (var i = tooltip.length; i--;) {
+                tooltip[i].style.left = event.pageX - 60 + 'px';
+                tooltip[i].style.top = event.pageY - 130 + 'px';
+            }
+        }
+
+        document.querySelector("#graph").addEventListener('mousemove', mouseoverGraph, false);
+        function mouseoverGraph(event) {
+            var coordX = ((event.pageX - 87) / 20) * timeDiv * Math.pow(10, 6);
+            var coordY = -(event.pageY - 167) * 6 / 40;
+            var graphCoordinates = "";
+            var rcoordY = coordY.toFixed(2)
+            if (timeDiv > Math.pow(10, -5)) {
+                coordX = coordX * Math.pow(10, -3);
+                graphCoordinates = rcoordY.toString() + "V, " + coordX.toFixed(2).toString() + "ms";
+                document.getElementById("coordinateDisplay").innerHTML = graphCoordinates;
+            } else {
+                graphCoordinates = rcoordY.toString() + "V, " + coordX.toFixed(2).toString() + "μs";
+                document.getElementById("coordinateDisplay").innerHTML = graphCoordinates;
+            }
+        }
+
+        function gridLayer() {
+            for (x = 40; x <= canvas0.width; x += 20) {
+                for (y = 0; y <= canvas0.height - 40; y += 20) {
+                    ctx0.beginPath();
+                    ctx0.strokeStyle = "#d3d3d3"
+                    ctx0.moveTo(x, 0);
+                    ctx0.lineTo(x, canvas0.height - 40);
+                    ctx0.stroke();
+                    ctx0.moveTo(40, y);
+                    ctx0.lineTo(canvas0.width, y);
+                    ctx0.stroke();
+                    ctx0.closePath();
+                }
+            }
+            for (x = 40; x <= canvas0.width; x += 20) {
+                for (y = 0; y <= canvas0.height - 40; y += 20) {
+                    ctx0.beginPath();
+                    ctx0.strokeStyle = "red"
+                    ctx0.moveTo(x, 77.5);
+                    ctx0.lineTo(x, 82.5);
+                    ctx0.stroke();
+                    ctx0.moveTo(77.5, y);
+                    ctx0.lineTo(82.5, y);
+                    ctx0.stroke();
+                    ctx0.closePath();
+                }
+            }
+            ctx0.beginPath();
+            ctx0.strokeStyle = "red";
+            ctx0.moveTo(80, 0);
+            ctx0.lineTo(80, canvas0.height - 40);
+            ctx0.moveTo(40, canvas0.height / 2 - 20);
+            ctx0.lineTo(canvas0.width, canvas0.height / 2 - 20);
+            ctx0.stroke();
+            ctx0.closePath();
+            ctx0.font = "20px Arial";
+            ctx0.fillText("Time, sec", canvas0.width * 4.5 / 10, 190);
+            ctx0.rotate(270 * Math.PI / 180);
+            ctx0.fillText("Voltage, V", -125, 25);
+        }
+
+        function drawSignal() {
+            let tempMessageValue = AB * Math.cos(2 * Math.PI * g * t);
+            let y = 40 * Math.sin(2 * Math.PI * a3 * t + tempMessageValue);
+            FMypos.unshift(y)
+            for (let i = 0; i < FMypos.length; i++) {
+                context.beginPath();
+                context.fillStyle = "#311201"
+                context.moveTo(i, canvas.height / 2 - FMypos[i])
+                context.lineTo(i + 1, canvas.height / 2 - FMypos[i + 1])
+                context.stroke()
+                context.closePath();
+                if (FMypos.length > 1100) {
+                    FMypos.pop();
+                }
+            }
+        }
+
+        function loop() {
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            t += (Math.PI / 180) / 1000;
+            drawSignal();
+            if (flag == true) requestAnimationFrame(loop);
+        }
+
+        document.querySelector("#PlayPauseButton").addEventListener("click", stop)
+        function stop() {
+            if (flag == true) {
+                flag = false;
+                document.getElementById("PlayPauseButton").value = "Play";
+            } else {
+                flag = true;
+                document.getElementById("PlayPauseButton").value = "Pause";
+                loop();
+            }
+        }
+        loop();
+        gridLayer();
+
+    </script>
+</body>
+
+</html>

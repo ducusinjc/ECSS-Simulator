@@ -1,0 +1,20 @@
+{
+  "name": "simulator",
+  "version": "1.0.0",
+  "description": "simulator for ECE 2231 of Saint Louis University",
+  "main": "themainfile.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "estepa, joshua",
+  "license": "",
+  "dependencies": {
+    "electron": "^11.1.1",
+    "mathjax": "^3.1.2",
+    "mathjax-full": "^3.1.2",
+    "sine-waves": "^0.3.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.2.0"
+  }
+}

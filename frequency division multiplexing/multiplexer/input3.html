@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <h1>Enter Parameters</h1>
+</head>
+
+<body>
+    <style>
+        h1 {
+            color: #fff;
+        }
+
+        html {
+            background: url(7.jpg) no-repeat center fixed;
+            background-size: cover;
+        }
+
+        div {
+            position: absolute;
+            top: 30%;
+            left: 25%;
+            width: 50%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .button1 {
+            font-size: 12px;
+            padding: 2px 20px;
+            background: url(button2.png) no-repeat;
+            background-size: contain;
+            color: black;
+            position: absolute;
+            top: 100%;
+            left: 20%;
+            border: none;
+            text-align: start;
+        }
+
+        .button1:hover {
+            background-color: #616269;
+            color: #78d5f5;
+        }
+
+        .button1:active {
+            background-color: #616269;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        div.div1 {
+            position: relative;
+            font-weight: 200;
+            color: #fff;
+            top: 20%
+        }
+
+        div.div2 {
+            position: relative;
+            font-weight: 200;
+            color: #ffffff;
+            top: 40%
+        }
+    </style>
+
+    <div class="div1">
+        <p>Modulating Signal</p>
+        <label>Amplitude </label>
+        <select name="myText1" id="myText1">
+            <option value="1">1V</option>
+            <option value="2">2V</option>
+            <option value="3">3V</option>
+            <option value="4">4V</option>
+            <option value="5">5V</option>
+            <option value="6">6V</option>
+            <option value="7">7V</option>
+            <option value="8">8V</option>
+            <option value="9">9V</option>
+            <option value="10">10V</option>
+        </select><br />
+        <label>Frequency</label>
+        <select type="number" id="myText2"><br />
+            <option value="100">100 Hz</option>
+            <option value="200">200 Hz</option>
+            <option value="300">300 Hz</option>
+            <option value="400">400 Hz</option>
+            <option value="500">500 Hz</option>
+            <option value="600">600 Hz</option>
+            <option value="700">700 Hz</option>
+            <option value="800">800 Hz</option>
+            <option value="900">900 Hz</option>
+            <option value="1000">1000 Hz</option>
+        </select><br />
+        <button class="button1" id="OK">OK</button>
+    </div>
+
+    <script>
+        document.querySelector("#OK").addEventListener("click",valueSender)
+        function valueSender() {
+            var c = document.getElementById("myText1").value;
+            localStorage.setItem("demin3amp", c);
+            var d = document.getElementById("myText2").value;
+            localStorage.setItem("demin3fre", d);
+            myWindow1 = window.open("demin3.html", "sw3", "width = 720, height = 450", false)
+        }
+    </script>
+</body>
+
+</html>

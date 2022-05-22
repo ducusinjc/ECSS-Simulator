@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title>Frequency Spectrum of Carrier 1</title>
+</head>
+<body> 
+
+    <input type="button" onclick="document.location='dcar1.html'" value="Time Domain" />
+
+<script type="text/javascript">
+  const canvas2=document.createElement('canvas'), pi=Math.PI;
+  canvas2.id='canvas2';
+  canvas2.width= (window.innerWidth)-25;
+  canvas2.height=(3.25*window.innerHeight)/4;
+  canvas2.style.border="1px solid #000";
+  canvas2.style.position="top 95px;"
+  canvas2.style.margin="2.5px";
+  document.body.appendChild(canvas2);
+  const context1= canvas2.getContext('2d');
+  var d, e, c,b;
+        d= localStorage.getItem("car1fre");
+        e=parseFloat(d);
+        c= localStorage.getItem("car1amp"); 
+        b=parseFloat(c);
+  var num1,num2,num,mf,n=2,o,p;
+  var inc=e/10;
+  var amp=c/10;
+  
+  function freqdraw(){
+    freqlabel(); freqlines();};
+
+   
+  function freqlabel(){
+    context1.beginPath();
+    context1.font="20px Arial ";
+    context1.fillText( 'Frequency Spectrum',10,16);
+    context1.closePath();
+    context1.beginPath();             
+  };
+            
+  function freqlines(){     
+    o=30
+    p=10
+    draw1()
+    
+
+    function draw1(){
+          context1.beginPath();
+              context1.beginPath();
+              context1.stroke();
+              context1.moveTo(0, canvas2.height - canvas2.height / 5);
+              context1.lineTo(canvas2.width, canvas2.height - canvas2.height / 5);
+              context1.strokeStyle = "#000"
+              context1.stroke();
+              context1.closePath();
+      
+              context1.moveTo(canvas2.width*e/106000 , canvas2.height - canvas2.height / 5);
+              context1.lineTo(canvas2.width*e/106000 , canvas2.height - canvas2.height / 5 - 30 -(amp*30));
+              context1.stroke();
+              context1.stroke();
+              context1.font = "10px Arial "
+              context1.fillText((b.toPrecision(3))+"V", canvas2.width*e/106000 - 7 , canvas2.height - canvas2.height / 5 - 30 -(amp*30));
+              context1.fillText(((e))+"Hz", canvas2.width*e/106000 - 15 , canvas2.height - canvas2.height / 5 + p);
+        }};
+            function loop1(){
+            context1.clearRect(0,0,canvas2.width, canvas2. height)
+            freqdraw();
+            }
+       loop1()
+            </script>
+        </body>
+    </html>

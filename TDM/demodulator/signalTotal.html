@@ -1,0 +1,191 @@
+<html>
+
+<head>
+    <title>TDM Output Waveform</title>
+</head>
+
+<body>
+    <style>
+        .coordinatestooltip {
+            display: none;
+            background: #FFE5B4;
+            margin-left: 10px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            width: 110px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .coordinates:hover .coordinatestooltip {
+            display: block;
+        }
+    </style>
+    <div>
+        Output:</span>
+    </div>
+    <div style="position: relative;">
+        <canvas id="grid" width="600" height="200" style="position: absolute; left: 0; top: 20; z-index: 0;"></canvas>
+        <span class="coordinates">
+            <canvas id="graph" width="560" height="161" style="position: absolute; left: 40; top: 20; z-index: 1;"></canvas>
+            <span id="coordinateDisplay" class="coordinatestooltip"></span></span>
+    </div>
+    <script>
+        const canvas0 = document.getElementById('grid');
+        const ctx0 = canvas0.getContext('2d');
+        const canvas = document.getElementById('graph');
+        const ctx = canvas.getContext('2d');
+        var p = {};
+        var finalString = "";
+
+        var signalA = (localStorage.getItem("signala") === null) ? "" : localStorage.getItem("signala");
+        var signalB = (localStorage.getItem("signa2a") === null) ? "" : localStorage.getItem("signa2a");
+        var signalC = (localStorage.getItem("signa3a") === null) ? "" : localStorage.getItem("signa3a");
+        var stringA = signalA.toString();
+        var stringB = signalB.toString();
+        var stringC = signalC.toString();
+        var stringAArr = stringA.split("");
+        var stringBArr = stringB.split("");
+        var stringCArr = stringC.split("");
+        console.log(stringAArr,stringBArr,stringCArr)
+        var maxLength = Math.max(stringAArr.length, stringBArr.length, stringCArr.length);
+        for (var index = 0; index < maxLength; index++) {
+            var bitA = (stringAArr[index] === undefined) ? "" : stringAArr[index];
+            var bitB = (stringBArr[index] === undefined) ? "" : stringBArr[index];
+            var bitC = (stringCArr[index] === undefined) ? "" : stringCArr[index];
+            var frames = bitA + bitB + bitC;
+            finalString += frames;
+        }
+
+        function grid() {
+            for (x = 40; x <= canvas0.width; x += 20) {
+                for (y = 0; y <= canvas0.height - 40; y += 20) {
+                    ctx0.beginPath();
+                    ctx0.strokeStyle = "#d3d3d3"
+                    ctx0.moveTo(x, 0);
+                    ctx0.lineTo(x, canvas0.height - 40);
+                    ctx0.stroke();
+                    ctx0.moveTo(40, y);
+                    ctx0.lineTo(canvas0.width, y);
+                    ctx0.stroke();
+                    ctx0.closePath();
+                }
+            }
+            for (x = 40; x <= canvas0.width; x += 20) {
+                for (y = 0; y <= canvas0.height - 40; y += 20) {
+                    ctx0.beginPath();
+                    ctx0.strokeStyle = "red"
+                    ctx0.moveTo(x, 137.5);
+                    ctx0.lineTo(x, 142.5);
+                    ctx0.stroke();
+                    ctx0.moveTo(57.5, y);
+                    ctx0.lineTo(62.5, y);
+                    ctx0.stroke();
+                    ctx0.closePath();
+                }
+            }
+            for (x = 60; x <= canvas0.width; x += 100) {
+                for (y = 0; y <= canvas0.height; y += 20) {
+                    ctx0.beginPath();
+                    ctx0.strokeStyle = "red"
+                    ctx0.moveTo(x, 132.5);
+                    ctx0.lineTo(x, 147.5);
+                    ctx0.stroke();
+                    ctx0.closePath();
+                }
+            }
+            ctx0.beginPath();
+            ctx0.strokeStyle = "red";
+            ctx0.moveTo(60, 0);
+            ctx0.lineTo(60, canvas0.height - 40);
+            ctx0.moveTo(40, 140);
+            ctx0.lineTo(canvas0.width, 140);
+            ctx0.stroke();
+            ctx0.closePath();
+            ctx0.font = "20px Arial";
+            ctx0.fillText("Time, µs", canvas0.width * 4.5 / 10, 190);
+            ctx0.rotate(270 * Math.PI / 180);
+            ctx0.fillText("Voltage, V", -125, 25);
+        }
+
+        var tooltip = document.querySelectorAll('.coordinatestooltip');
+        document.addEventListener('mousemove', fn, false);
+        function fn(event) {
+            for (var i = tooltip.length; i--;) {
+                tooltip[i].style.left = event.pageX - 80 + 'px';
+                tooltip[i].style.top = event.pageY - 80 + 'px';
+            }
+        }
+
+        document.querySelector("#graph").addEventListener('mousemove', mouseoverGraph, false);
+        function mouseoverGraph(event) {
+            var coordX = ((event.pageX - 67) / 2);
+            var coordY = -(event.pageY - 187)/20;
+            var rcoordY= coordY.toFixed(2)
+            var graphCoordinates = rcoordY.toString() + "V, " + coordX.toFixed(2).toString() + "μs";
+            document.getElementById("coordinateDisplay").innerHTML = graphCoordinates;
+        }
+
+        function wav_squre_m_n(m, n, i, str) {
+            if (m == '0' && n == '0') {
+                ctx.lineTo(p.x + 100 / 3, p.y);
+                p.x += 100 / 3;
+            }
+            else if (m == '1' && n == '1') {
+                ctx.lineTo(p.x + 100 / 3, p.y);
+                p.x += 100 / 3;
+            }
+            else if (m == '0' && n == '1') {
+                ctx.lineTo(p.x, p.y - 100);
+                ctx.lineTo(p.x + 100 / 3, p.y - 100);
+                p.x += 100 / 3;
+                p.y -= 100;
+            }
+            else if (m == '1' && n == '0') {
+                ctx.lineTo(p.x, p.y + 100);
+                ctx.lineTo(p.x + 100 / 3, p.y + 100);
+                p.x += 100 / 3;
+                p.y += 100;
+            }
+            if (n == '1' && i == str.length - 1) {
+                ctx.lineTo(p.x, p.y + 100);
+            }
+        }
+
+        function wav_squre_analysis(str) {
+            var i = 0;
+            wav_squre_m_n('0', str[0], i, str);
+            for (i = 1; i < str.length; i++) {
+                wav_squre_m_n(str[i - 1], str[i], i, str);
+            }
+        }
+
+
+        function wav_squre_update() {
+            var str = finalString.substr(0);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            wav_squre_analysis(str);
+            ctx.stroke();
+        }
+
+        function wav_squre_draw() {
+            p.x = 20;
+            p.y = 140;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "black";
+            wav_squre_update();
+        }
+
+        function draw() {
+            grid();
+            wav_squre_draw();
+        }
+
+        draw();
+    </script>
+</body>
+
+</html>
